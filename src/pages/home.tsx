@@ -1,17 +1,38 @@
-import React from "react";
+import React, { FunctionComponent, ReactElement, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button"
 import { LoginButton } from "@/components/login-button"
 import { Shield, Sword, Map, Users, Trophy, ChevronRight } from "lucide-react"
+import { BasicUserInfo, useAuthContext } from "@asgardeo/auth-react";
+
 
 export default function HomePage() {
+  const [basicUserInfo, setBasicUserInfo] = useState<BasicUserInfo>(null);
+
+
+  const {
+    state,
+    getBasicUserInfo
+  } = useAuthContext();
+
+    useEffect(() => {
+  
+      if (!state?.isAuthenticated) {
+        return;
+      }
+  
+      (async (): Promise<void> => {
+        setBasicUserInfo(await getBasicUserInfo());
+      })();
+    }, [state.isAuthenticated]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100">
       {/* Header */}
       <header className="container mx-auto px-4 py-6 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Shield className="h-8 w-8 text-red-500" />
-          <span className="text-xl font-bold">StrategyQuest</span>
+          <span className="text-xl font-bold"></span>
         </div>
         <div className="flex items-center gap-4">
           <nav className="hidden md:flex items-center gap-6">
@@ -32,7 +53,9 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-          Master Strategy.
+          Welcome {basicUserInfo?.username}! 
+          <br />
+          It's time to Master Strategy.
           <br />
           Conquer Worlds.
         </h1>
@@ -147,7 +170,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-2 mb-6 md:mb-0">
               <Shield className="h-6 w-6 text-red-500" />
-              <span className="text-lg font-bold">StrategyQuest</span>
+              <span className="text-lg font-bold">Project Snake</span>
             </div>
             <nav className="flex flex-wrap justify-center gap-8">
               <Link to="#" className="text-sm text-gray-400 hover:text-white">
@@ -165,7 +188,7 @@ export default function HomePage() {
             </nav>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} StrategyQuest. All rights reserved.
+            © {new Date().getFullYear()} Project Snake. All rights reserved.
           </div>
         </div>
       </footer>

@@ -22,6 +22,7 @@ import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ErrorBoundary } from "./error-boundary";
 import { HomePage , NotFoundPage } from "./pages";
+import "./styles/globals.css";
 
 const AppContent: FunctionComponent = (): ReactElement => {
     const { error } = useAuthContext();
@@ -41,8 +42,8 @@ const AppContent: FunctionComponent = (): ReactElement => {
 const App = () => (
     <AuthProvider
     config={ {
-      signInRedirectURL: 'https://snake.loca.lt/',
-      signOutRedirectURL: 'https://snake.loca.lt/',
+      signInRedirectURL: 'https://project-snake-wso2-client.vercel.app/',
+      signOutRedirectURL: 'https://project-snake-wso2-client.vercel.app/',
       clientID: 'HYhRmP11tDsI91TzcdRr1vqSy1Qa',
       baseUrl: 'https://legally-measured-griffon.ngrok-free.app',
       scope: ['openid', 'profile'],

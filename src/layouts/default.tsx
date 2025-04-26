@@ -17,6 +17,7 @@
  */
 
 import React, { FunctionComponent, PropsWithChildren, ReactElement } from "react";
+import '../styles/globals.css'
 
 /**
  * Decoded ID Token Response component Prop types interface.

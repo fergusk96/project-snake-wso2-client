@@ -55,7 +55,8 @@ module.exports = async () => {
                 },
                 {
                     test: /\.css$/,
-                    use: [ "style-loader", "css-loader" ]
+                    exclude: /node_modules/, // Exclude node_modules from CSS processing
+                    use: ["style-loader", "css-loader", "postcss-loader"], // Ensure postcss-loader is included
                 },
                 {
                     test: /\.(png|jpg|cur|gif|eot|ttf|woff|woff2)$/,
