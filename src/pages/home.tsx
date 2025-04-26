@@ -20,7 +20,6 @@ import { BasicUserInfo, Hooks, useAuthContext } from "@asgardeo/auth-react";
 import React, { FunctionComponent, ReactElement, useCallback, useEffect, useState } from "react";
 import REACT_LOGO from "../images/react-logo.png";
 import { DefaultLayout } from "../layouts/default";
-import { AuthenticationResponse } from "../components";
 import { useLocation } from "react-router-dom";
 import { LogoutRequestDenied } from "../components/LogoutRequestDenied";
 import { USER_DENIED_LOGOUT } from "../constants/errors";
@@ -134,9 +133,9 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                 state.isAuthenticated
                     ? (
                         <div className="content">
-                            <AuthenticationResponse
-                                derivedResponse={ derivedAuthenticationState }
-                            />
+                            <h4 className={ "spa-app-description" }>
+                                Welcome {derivedAuthenticationState?.authenticateResponse.username} to Project Snake
+                            </h4>
                             <button
                                 className="btn primary mt-4"
                                 onClick={ () => {
@@ -153,12 +152,7 @@ export const HomePage: FunctionComponent = (): ReactElement => {
                                 <img alt="react-logo" src={ REACT_LOGO } className="react-logo-image logo"/>
                             </div>
                             <h4 className={ "spa-app-description" }>
-                                Sample demo to showcase authentication for a Single Page Application
-                                via the OpenID Connect Authorization Code flow,
-                                which is integrated using the&nbsp;
-                                <a href="https://github.com/asgardeo/asgardeo-auth-react-sdk" target="_blank" rel="noreferrer noopener">
-                                    Asgardeo Auth React SDK
-                                </a>.
+                                Please login to your project snake account
                             </h4>
                             <button
                                 className="btn primary"

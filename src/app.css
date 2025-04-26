@@ -102,18 +102,6 @@ code {
     border-radius: 4px;
 }
 
-.code .id-token-0 {
-    color: #cc6633;
-}
-
-.code .id-token-1 {
-    color: #f9f8f5;
-}
-
-.code .id-token-2 {
-    color: #fd971f;
-}
-
 .row {
     width: 100%;
     display: flex;
