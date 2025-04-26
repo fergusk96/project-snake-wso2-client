@@ -20,11 +20,6 @@ USER ${USER_ID}
 # Copy the rest of the application code to the container
 COPY --chown=${USER}:${USER_GROUP} . .
 
-# Set environment variables
-ENV HOST="0.0.0.0"
-ENV DISABLE_DEV_SERVER_HOST_CHECK=true
-ENV HTTPS=false
-
 # Install dependencies
 RUN npm run build
 

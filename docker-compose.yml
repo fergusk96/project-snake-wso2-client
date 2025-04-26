@@ -1,0 +1,15 @@
+services:
+  wso2-client-project-snake:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - HOST=0.0.0.0
+      - DISABLE_DEV_SERVER_HOST_CHECK=true
+      - HTTPS=false
+  lt:
+    build:
+      dockerfile: Dockerfile-lt
+    command: "usr/local/bin/lt --port 3000 --local-host wso2-client-project-snake --subdomain snake"
+    depends_on:
+      - wso2-client-project-snake
