@@ -2,6 +2,7 @@
 require("dotenv").config();
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin"); 
 const path = require("path");
 const { findPort } = require("dev-server-ports");
 
@@ -34,7 +35,8 @@ module.exports = async () => {
 
     return ({
         devServer: {
-            static: path.resolve(__dirname, "dist"),
+            static: [path.resolve(__dirname, "dist"),
+            path.resolve(__dirname, "public")],
             historyApiFallback: true,
             server: https ? "https": "http",
             host: HOST,
@@ -85,6 +87,14 @@ module.exports = async () => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: "./src/index.html"
+            }),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        from: path.resolve(__dirname, "public"), // Copy all files from public folder
+                        to: path.resolve(__dirname, "dist"), // Copy to dist folder
+                    },
+                ],
             }),
         ],
         resolve: {

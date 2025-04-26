@@ -42,6 +42,7 @@
     "dotenv": "^16.0.3",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "copy-webpack-plugin": "^13.0.0",
     "postcss": "^8.3.0",
     "postcss-loader": "^8.1.1",
     "source-map-loader": "^4.0.1",
