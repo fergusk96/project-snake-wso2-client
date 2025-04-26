@@ -1,8 +1,10 @@
 
 require("dotenv").config();
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const { findPort } = require("dev-server-ports");
+
 
 const HOST = process.env.HOST || "localhost";
 const DEFAULT_PORT = process.env.PORT || 3000;
@@ -70,7 +72,8 @@ module.exports = async () => {
                 {
                     test: /\.js$/,
                     enforce: "pre",
-                    use: [ "source-map-loader" ]
+                    use: [ "source-map-loader" ],
+                    exclude: /node_modules/, // Ignore source maps in node_modules
                 }
             ]
         },
@@ -81,9 +84,12 @@ module.exports = async () => {
         plugins: [
             new HtmlWebpackPlugin({
                 template: "./src/index.html"
-            })
+            }),
         ],
         resolve: {
+            alias: {
+                "@": path.resolve(__dirname, "src"),
+            },
             extensions: [ ".tsx", ".ts", ".js", ".json" ]
         }
     });

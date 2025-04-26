@@ -16,5 +16,7 @@
  * under the License.
  */
 
+import HomePage from "./home";
+
 export * from "./404";
-export * from "./home";
+export { default as HomePage } from "./home";

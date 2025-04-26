@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES6",
-        "jsx": "react",
+        "jsx": "react-jsx",
         "module": "ESNext",
         "sourceMap": true,
         "noImplicitAny": true,
@@ -10,12 +10,16 @@
         "experimentalDecorators": true,
         "typeRoots": [
             "./typings"
-        ]
+        ],
+        "baseUrl": ".",
+        "paths": {
+         "@/*": ["src/*"]
+        },
     },
     "include": [
         "typings/**/*",
         "src/**/*"
-    ],
+, "src/components/ui/button.tsx"    ],
     "exclude": [
         "node_modules",
         "**/*.spec.ts"

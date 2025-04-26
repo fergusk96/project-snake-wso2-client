@@ -3,10 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - HOST=0.0.0.0
-      - DISABLE_DEV_SERVER_HOST_CHECK=true
-      - HTTPS=false
   lt:
     build:
       dockerfile: Dockerfile-lt
