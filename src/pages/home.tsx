@@ -32,7 +32,7 @@ export default function HomePage() {
         "Accept": "application/json",
         "Content-Type": "application/scim+json",
       },
-      method: "POST",
+      method: "GET",
       url: "https://legally-measured-griffon.ngrok-free.app/t/bd5f93cb-f707-4715-9c8a-acf0014d65f2/scim2/me",
     };
 
