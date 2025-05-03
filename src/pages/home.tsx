@@ -55,7 +55,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-          basicUserInfo?.displayName
+          Welcome{basicUserInfo?.displayName ? ' '+basicUserInfo.displayName : ' '+basicUserInfo?.username}!
           <br />
           It's time to Master Strategy.
           <br />
