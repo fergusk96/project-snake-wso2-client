@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { LoginButton } from "@/components/login-button"
 import { Shield, Sword, Map, Users, Trophy, ChevronRight } from "lucide-react"
 import { BasicUserInfo, useAuthContext } from "@asgardeo/auth-react";
+import inGameAction from "@/images/in_game_action_wide.png";
+import { FaDiscord } from "react-icons/fa";
 
 
 export default function HomePage() {
@@ -15,16 +17,16 @@ export default function HomePage() {
     getBasicUserInfo
   } = useAuthContext();
 
-    useEffect(() => {
-  
-      if (!state?.isAuthenticated) {
-        return;
-      }
-  
-      (async (): Promise<void> => {
-        setBasicUserInfo(await getBasicUserInfo());
-      })();
-    }, [state.isAuthenticated]);
+  useEffect(() => {
+
+    if (!state?.isAuthenticated) {
+      return;
+    }
+
+    (async (): Promise<void> => {
+      setBasicUserInfo(await getBasicUserInfo());
+    })();
+  }, [state.isAuthenticated]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100">
@@ -53,7 +55,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-          Welcome {basicUserInfo?.username}! 
+          basicUserInfo?.displayName
           <br />
           It's time to Master Strategy.
           <br />
@@ -66,18 +68,25 @@ export default function HomePage() {
           <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
             Play Now <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
-          <Button size="lg" variant="outline" className="border-gray-700 hover:bg-gray-800">
+          <Button
+            size="lg"
+            className="bg-white hover:bg-gray-600 text-black border-black"
+          >
             Watch Trailer
           </Button>
         </div>
         <div className="mt-16 relative w-full max-w-4xl aspect-video rounded-lg overflow-hidden border-2 border-gray-800 shadow-2xl">
-          <img src="/placeholder.svg?height=1080&width=1920" alt="Game Screenshot" className="object-cover" />
+          <img
+            src={`${inGameAction}`}
+            alt="Game Screenshot"
+            className="object-cover w-full h-full"  // <- changed from object-contain to object-cover
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="container mx-auto px-4 py-20">
+      <section id="features" className="container mx-auto pt-0 pb-20">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">Game Features</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <FeatureCard
@@ -115,9 +124,9 @@ export default function HomePage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-gray-800 shadow-xl">
               <img
-                src="/placeholder.svg?height=720&width=1280"
-                alt="Gameplay Screenshot"
-                className="object-cover"
+                src={`${inGameAction}`}
+                alt="Game Screenshot"
+                className="object-cover w-full h-full"  // <- changed from object-contain to object-cover
               />
             </div>
           </div>
@@ -154,11 +163,18 @@ export default function HomePage() {
             Join thousands of players already battling for supremacy.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
+            <Button
+              size="lg"
+              className="bg-red-600 hover:bg-red-700 text-white w-full sm:w-64"
+            >
               Play Now <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="border-gray-700 hover:bg-gray-800">
-              Join Discord
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-gray-700 hover:bg-gray-600 text-black w-full sm:w-64"
+            >
+              <FaDiscord className="h-6 w-6 mx-auto" />
             </Button>
           </div>
         </div>

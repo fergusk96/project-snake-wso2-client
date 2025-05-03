@@ -74,7 +74,7 @@ export const LoginButton: FunctionComponent = (): ReactElement => {
     <Button
       onClick={handleLogin}
       variant="outline"
-      size="sm"
+      size="default"
       className="border-red-500/50 hover:bg-red-500/10 text-red-400"
     >
       <LogIn className="mr-2 h-4 w-4" />
