@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button"
 import { LoginButton } from "@/components/login-button"
 import { Shield, Sword, Map, Users, Trophy, ChevronRight } from "lucide-react"
-import { BasicUserInfo, useAuthContext } from "@asgardeo/auth-react";
+import { BasicUserInfo, HttpRequestConfig, useAuthContext } from "@asgardeo/auth-react";
 import inGameAction from "@/images/in_game_action_wide.png";
 import { FaDiscord } from "react-icons/fa";
 
@@ -14,18 +14,32 @@ export default function HomePage() {
 
   const {
     state,
-    getBasicUserInfo
+    httpRequest,
   } = useAuthContext();
 
   useEffect(() => {
-
     if (!state?.isAuthenticated) {
       return;
     }
 
-    (async (): Promise<void> => {
-      setBasicUserInfo(await getBasicUserInfo());
-    })();
+    const requestConfig: HttpRequestConfig = {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/scim+json",
+      },
+      method: "GET",
+      url: "https://api.asgardeo.io/t/<org_name>/scim2/me",
+    };
+
+    httpRequest(requestConfig)
+      .then((response) => {
+        // Handle successful response
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error:", error);
+      });
   }, [state.isAuthenticated]);
 
   return (
@@ -56,9 +70,9 @@ export default function HomePage() {
       <section className="container mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
           {basicUserInfo
-            ? `Welcome ${basicUserInfo.displayName || basicUserInfo.username || basicUserInfo.email?.split('@')[0] || "User"}!`
-            : "Welcome Guest!"}         
-             <br />
+            ? `Welcome ${basicUserInfo.displayName || basicUserInfo.username || basicUserInfo.email?.split('@')[0] || "Player"}!`
+            : "Welcome Player!"}
+          <br />
           It's time to Master Strategy.
           <br />
           Conquer Worlds.
