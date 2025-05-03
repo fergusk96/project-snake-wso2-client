@@ -28,7 +28,7 @@ export default function HomePage() {
         "Content-Type": "application/scim+json",
       },
       method: "GET",
-      url: "https://api.asgardeo.io/t/<org_name>/scim2/me",
+      url: "https://legally-measured-griffon.ngrok-free.app/t/bd5f93cb-f707-4715-9c8a-acf0014d65f2/scim2/me",
     };
 
     httpRequest(requestConfig)
