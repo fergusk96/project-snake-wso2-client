@@ -15,6 +15,8 @@ export default function HomePage() {
   const {
     state,
     httpRequest,
+    getBasicUserInfo,
+    getAccessToken,
   } = useAuthContext();
 
   useEffect(() => {
@@ -22,14 +24,18 @@ export default function HomePage() {
       return;
     }
 
+    (async (): Promise<void> => {
+      setBasicUserInfo(await getBasicUserInfo());
+    })();
     const requestConfig: HttpRequestConfig = {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/scim+json",
       },
-      method: "GET",
+      method: "POST",
       url: "https://legally-measured-griffon.ngrok-free.app/t/bd5f93cb-f707-4715-9c8a-acf0014d65f2/scim2/me",
     };
+
 
     httpRequest(requestConfig)
       .then((response) => {
