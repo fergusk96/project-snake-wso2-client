@@ -1,6 +1,6 @@
 {
   // The name of your Worker
-  "name": "project-snake",
+  "name": "project-snake-wrangler",
 
   // The compatibility date for Cloudflare Workers
   "compatibility_date": "2025-06-08",
