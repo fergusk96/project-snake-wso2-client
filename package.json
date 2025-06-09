@@ -60,5 +60,6 @@
     "webpack-dev-server": {
       "html-entities": "2.4.0"
     }
-  }
+  },
+  "packageManager": "yarn@4.5.0"
 }

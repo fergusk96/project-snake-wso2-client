@@ -3,9 +3,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-  lt:
-    build:
-      dockerfile: Dockerfile-lt
-    command: "usr/local/bin/lt --port 3000 --local-host wso2-client-project-snake --subdomain snake"
-    depends_on:
-      - wso2-client-project-snake
+    ports:
+      - "3000:3000"
