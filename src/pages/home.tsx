@@ -27,28 +27,25 @@ export default function HomePage() {
     (async (): Promise<void> => {
       setBasicUserInfo(await getBasicUserInfo());
     })();
-    (async () => {
-      const accessToken = await getAccessToken();
-      const requestConfig: HttpRequestConfig = {
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/scim+json",
-          "Authorization": `Bearer ${accessToken}`,
-        },
-        method: "GET",
-        url: "https://legally-measured-griffon.ngrok-free.app/t/bd5f93cb-f707-4715-9c8a-acf0014d65f2/scim2/me",
-      };
+    const requestConfig: HttpRequestConfig = {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/scim+json",
+      },
+      method: "GET",
+      url: "https://account.project-snake.win/scim2/me",
+    };
 
-      httpRequest(requestConfig)
-        .then((response) => {
-          // Handle successful response
-          console.log("Response:", response.data);
-        })
-        .catch((error) => {
-          // Handle error
-          console.error("Error:", error);
-        });
-    })();
+
+    httpRequest(requestConfig)
+      .then((response) => {
+        // Handle successful response
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error:", error);
+      });
   }, [state.isAuthenticated]);
 
   return (

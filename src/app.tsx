@@ -27,7 +27,7 @@ const App = () => (
       signInRedirectURL: 'https://project-snake-wso2-client.vercel.app/',
       signOutRedirectURL: 'https://project-snake-wso2-client.vercel.app/',
       clientID: 'HYhRmP11tDsI91TzcdRr1vqSy1Qa',
-      baseUrl: 'https://legally-measured-griffon.ngrok-free.app',
+      baseUrl: 'https://account.project-snake.win/',
       scope: ['openid', 'profile'],
     } }
   >
