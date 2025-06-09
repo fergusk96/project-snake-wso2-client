@@ -14,17 +14,28 @@ RUN addgroup -S -g ${USER_GROUP_ID} ${USER_GROUP} \
 # Create app directory
 WORKDIR ${USER_HOME}
 
+
+
+COPY --chown=${USER}:${USER_GROUP} .yarn .yarn
+COPY --chown=${USER}:${USER_GROUP} .yarnrc.yml ./
+COPY --chown=${USER}:${USER_GROUP} package.json ./
+COPY --chown=${USER}:${USER_GROUP} yarn.lock ./
+
+# Enable corepack and prepare yarn
+RUN corepack enable && corepack prepare yarn@4.5.0 --activate
+
 # Set a non-root user
 USER ${USER_ID}
 
-# Copy the rest of the application code to the container
+# Install dependencies and build
+RUN yarn install --immutable
 COPY --chown=${USER}:${USER_GROUP} . .
 
 # Install dependencies
-RUN npm run build
+RUN yarn build
 
 # Expose port 3000
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "run", "start"]
+CMD ["yarn", "start"]

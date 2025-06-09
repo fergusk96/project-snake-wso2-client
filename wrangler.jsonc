@@ -1,0 +1,12 @@
+{
+  // The name of your Worker
+  "name": "wso2-client-project-snake",
+
+  // The compatibility date for Cloudflare Workers
+  "compatibility_date": "2025-06-08",
+
+  // The directory containing static assets to be served
+  "assets": {
+    "directory": "./dist"
+  }
+}
