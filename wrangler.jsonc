@@ -8,5 +8,11 @@
   // The directory containing static assets to be served
   "assets": {
     "directory": "./dist"
-  }
+  },
+  "observability": {
+    "logs": {
+    "enabled": true,
+    "namespace": "project-snake-web"
+    }
+  },
 }
