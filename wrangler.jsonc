@@ -1,6 +1,6 @@
 {
   // The name of your Worker
-  "name": "wso2-snake",
+  "name": "project-snake",
 
   // The compatibility date for Cloudflare Workers
   "compatibility_date": "2025-06-08",
