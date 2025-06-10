@@ -24,7 +24,7 @@ const App = () => (
     clientId="3354879266344193b64d6d5a3a79073e"
     domain="https://auth.project-snake.win"
     logoutUri="https://auth.project-snake.win"
-    redirectUri="https://auth.project-snake.win"
+    redirectUri="https://web.project-snake.win"
   >
     <AppContent />
   </KindeProvider>
