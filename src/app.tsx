@@ -1,4 +1,4 @@
-import { AuthProvider, useAuthContext } from "@asgardeo/auth-react";
+import { KindeProvider } from "@kinde-oss/kinde-auth-react";
 import React, { FunctionComponent, ReactElement } from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -7,10 +7,8 @@ import { HomePage , NotFoundPage } from "./pages";
 import "./styles/globals.css";
 
 const AppContent: FunctionComponent = (): ReactElement => {
-    const { error } = useAuthContext();
-
     return (
-        <ErrorBoundary error={error}>
+        <ErrorBoundary>
             <Router>
             <Routes>
                 <Route path="/" element={ <HomePage /> } />
@@ -22,17 +20,14 @@ const AppContent: FunctionComponent = (): ReactElement => {
 };
 
 const App = () => (
-    <AuthProvider
-    config={ {
-      signInRedirectURL: 'https://project-snake-wso2-client.vercel.app/',
-      signOutRedirectURL: 'https://project-snake-wso2-client.vercel.app/',
-      clientID: 'HYhRmP11tDsI91TzcdRr1vqSy1Qa',
-      baseUrl: 'https://account.project-snake.win',
-      scope: ['openid', 'profile'],
-    } }
+  <KindeProvider
+    clientId="3354879266344193b64d6d5a3a79073e"
+    domain="https://auth.project-snake.win"
+    logoutUri="https://auth.project-snake.win"
+    redirectUri="https://auth.project-snake.win"
   >
-        <AppContent />
-    </AuthProvider>
+    <AppContent />
+  </KindeProvider>
 );
 
-render((<App />), document.getElementById("root"));
+render(<App />, document.getElementById("root"));

@@ -1,52 +1,22 @@
-import React, { FunctionComponent, ReactElement, useCallback, useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button"
-import { LoginButton } from "@/components/login-button"
-import { Shield, Sword, Map, Users, Trophy, ChevronRight } from "lucide-react"
-import { BasicUserInfo, HttpRequestConfig, useAuthContext } from "@asgardeo/auth-react";
+import { Button } from "@/components/ui/button";
+import { LoginButton } from "@/components/login-button";
+import { Shield, Sword, Map, Users, Trophy, ChevronRight } from "lucide-react";
 import inGameAction from "@/images/in_game_action_wide.png";
 import { FaDiscord } from "react-icons/fa";
-
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 export default function HomePage() {
-  const [basicUserInfo, setBasicUserInfo] = useState<BasicUserInfo>(null);
+  const { user, isAuthenticated, isLoading } = useKindeAuth();
 
-
-  const {
-    state,
-    httpRequest,
-    getBasicUserInfo,
-    getAccessToken,
-  } = useAuthContext();
-
-  useEffect(() => {
-    if (!state?.isAuthenticated) {
-      return;
-    }
-
-    (async (): Promise<void> => {
-      setBasicUserInfo(await getBasicUserInfo());
-    })();
-    const requestConfig: HttpRequestConfig = {
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/scim+json",
-      },
-      method: "GET",
-      url: "https://account.project-snake.win/scim2/me",
-    };
-
-
-    httpRequest(requestConfig)
-      .then((response) => {
-        // Handle successful response
-        console.log("Response:", response.data);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error("Error:", error);
-      });
-  }, [state.isAuthenticated]);
+  // You can adjust these fields based on what Kinde provides in the user object
+  const displayName =
+    user?.familyName ||
+    user?.givenName ||
+    user?.picture ||
+    user?.email?.split("@")[0] ||
+    "Player";
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100">
@@ -75,8 +45,10 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 md:py-32 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-          {basicUserInfo
-            ? `Welcome ${basicUserInfo.displayName || basicUserInfo.username || basicUserInfo.email?.split('@')[0] || "Player"}!`
+          {isLoading
+            ? "Loading..."
+            : isAuthenticated
+            ? `Welcome ${displayName}!`
             : "Welcome Player!"}
           <br />
           It's time to Master Strategy.
@@ -99,9 +71,9 @@ export default function HomePage() {
         </div>
         <div className="mt-16 relative w-full max-w-4xl aspect-video rounded-lg overflow-hidden border-2 border-gray-800 shadow-2xl">
           <img
-            src={`${inGameAction}`}
+            src={inGameAction}
             alt="Game Screenshot"
-            className="object-cover w-full h-full"  // <- changed from object-contain to object-cover
+            className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
         </div>
@@ -146,9 +118,9 @@ export default function HomePage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-gray-800 shadow-xl">
               <img
-                src={`${inGameAction}`}
+                src={inGameAction}
                 alt="Game Screenshot"
-                className="object-cover w-full h-full"  // <- changed from object-contain to object-cover
+                className="object-cover w-full h-full"
               />
             </div>
           </div>
@@ -231,7 +203,7 @@ export default function HomePage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
 // Helper Components
@@ -242,7 +214,7 @@ function FeatureCard({ icon, title, description }) {
       <h3 className="text-xl font-bold mb-2">{title}</h3>
       <p className="text-gray-400">{description}</p>
     </div>
-  )
+  );
 }
 
 function GameplayFeature({ children }) {
@@ -253,7 +225,7 @@ function GameplayFeature({ children }) {
       </div>
       <span>{children}</span>
     </li>
-  )
+  );
 }
 
 function TestimonialCard({ quote, author, rating }) {
@@ -267,5 +239,5 @@ function TestimonialCard({ quote, author, rating }) {
       <p className="italic mb-4 text-gray-300">"{quote}"</p>
       <p className="text-sm text-gray-400">- {author}</p>
     </div>
-  )
+  );
 }

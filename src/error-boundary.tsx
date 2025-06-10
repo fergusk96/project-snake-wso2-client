@@ -1,31 +1,34 @@
-import { AsgardeoAuthException } from "@asgardeo/auth-react";
-import React, { FunctionComponent, ReactElement } from "react";
+import React, { Component, ReactNode } from "react";
 import { AuthenticationFailure } from "./pages/AuthenticationFailure";
-import { InvalidSystemTimePage } from "./pages/InvalidSystemTime";
-import { IssuerClaimValidationFailure } from "./pages/IssuerClaimValidationFailure";
-import { VerifyIDTokenFailure } from "./pages/VerifyIDTokenFailure";
 
 interface ErrorBoundaryProps {
-  error: AsgardeoAuthException;
-  children: ReactElement;
+  children: ReactNode;
 }
 
-export const ErrorBoundary: FunctionComponent<ErrorBoundaryProps> = (
-  props: ErrorBoundaryProps
-): ReactElement => {
-  const { error, children } = props;
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
 
-  if (error?.code === "SPA-CRYPTO-UTILS-VJ-IV01") {
-    if (error?.message === "ERR_JWT_CLAIM_VALIDATION_FAILED nbf") {
-      return <InvalidSystemTimePage />
-    } else if (error?.message === "ERR_JWT_CLAIM_VALIDATION_FAILED iss") {
-      return <IssuerClaimValidationFailure/>
-    } else {
-      return <VerifyIDTokenFailure error={error}/>
-    }
-  } else if (error?.code === "SPA-MAIN_THREAD_CLIENT-SI-SE01") {
-    return <AuthenticationFailure />
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
   }
 
-  return children;
-};
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // You can log error details here if needed
+    // console.error("ErrorBoundary caught an error", error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <AuthenticationFailure />;
+    }
+    return this.props.children;
+  }
+}

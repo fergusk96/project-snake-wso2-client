@@ -1,68 +1,20 @@
 "use client";
 
-import { BasicUserInfo, useAuthContext } from "@asgardeo/auth-react";
-import React, { FunctionComponent, ReactElement, useCallback, useState, useEffect } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { LogIn, LogOut } from "lucide-react";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
-export const LoginButton: FunctionComponent = (): ReactElement => {
-  interface DerivedState {
-    authenticateResponse: BasicUserInfo;
-    idToken: string[];
-    decodedIdTokenHeader: string;
-    decodedIDTokenPayload: Record<string, string | number | boolean>;
+export const LoginButton: React.FC = () => {
+  const { login, logout, user, isAuthenticated, isLoading } = useKindeAuth();
+
+  if (isLoading) {
+    return <Button disabled>Loading...</Button>;
   }
 
-
-  const {
-    state,
-    signIn,
-    signOut,
-    getBasicUserInfo,
-    getIDToken,
-    getDecodedIDToken,
-    on,
-  } = useAuthContext();
-
-  const [derivedAuthenticationState, setDerivedAuthenticationState] = useState<DerivedState>(null);
-  const [hasAuthenticationErrors, setHasAuthenticationErrors] = useState<boolean>(false);
-  const [hasLogoutFailureError, setHasLogoutFailureError] = useState<boolean>(false);
-
-  useEffect(() => {
-
-    if (!state?.isAuthenticated) {
-      return;
-    }
-
-    (async (): Promise<void> => {
-      const basicUserInfo = await getBasicUserInfo();
-      const idToken = await getIDToken();
-      const decodedIDToken = await getDecodedIDToken();
-
-      const derivedState: DerivedState = {
-        authenticateResponse: basicUserInfo,
-        idToken: idToken.split("."),
-        decodedIdTokenHeader: JSON.parse(atob(idToken.split(".")[0])),
-        decodedIDTokenPayload: decodedIDToken
-      };
-
-      setDerivedAuthenticationState(derivedState);
-    })();
-  }, [state.isAuthenticated, getBasicUserInfo, getIDToken, getDecodedIDToken]);
-
-  const handleLogin = useCallback(() => {
-    setHasLogoutFailureError(false);
-    signIn().catch(() => setHasAuthenticationErrors(true));
-  }, [signIn]);
-
-   const handleLogout = useCallback(() => {
-    setHasAuthenticationErrors(false);
-    signOut().catch(() => setHasLogoutFailureError(true));
-  }, [signOut]);
-
-  return state?.isAuthenticated ? (
+  return isAuthenticated ? (
     <Button
-      onClick={handleLogout}
+      onClick={logout}
       variant="outline"
       size="sm"
       className="border-red-500/50 hover:bg-red-500/10 text-red-400"
@@ -72,7 +24,7 @@ export const LoginButton: FunctionComponent = (): ReactElement => {
     </Button>
   ) : (
     <Button
-      onClick={handleLogin}
+      onClick={login}
       variant="outline"
       size="default"
       className="border-red-500/50 hover:bg-red-500/10 text-red-400"
