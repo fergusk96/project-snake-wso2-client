@@ -5,7 +5,9 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --hot --open",
     "prebuild": "yarn install",
-    "build": "webpack"
+    "build": "webpack",
+    "build-production": "webpack --mode production --config webpack.config.js"
+
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.6",
