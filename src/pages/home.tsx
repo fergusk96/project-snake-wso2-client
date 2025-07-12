@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LoginButton } from "@/components/login-button";
 import { Shield, Sword, Map, Users, Trophy, ChevronRight } from "lucide-react";
-import inGameAction from "@/images/in_game_action_wide.png";
 import { FaDiscord } from "react-icons/fa";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
+
+
+const inGameAction = "https://images.project-snake.win/in_game_action.png";
 export default function HomePage() {
   const { user, isAuthenticated, isLoading } = useKindeAuth();
 
