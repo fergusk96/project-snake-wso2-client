@@ -2,7 +2,7 @@
 require("dotenv").config();
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin"); 
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require("path");
 const { findPort } = require("dev-server-ports");
 
@@ -38,21 +38,37 @@ module.exports = async () => {
             static: [path.resolve(__dirname, "dist"),
             path.resolve(__dirname, "public")],
             historyApiFallback: true,
-            server: https ? "https": "http",
+            server: https ? "https" : "http",
             host: HOST,
             allowedHosts: 'all',
             port: PORT,
         },
         devtool: "source-map",
-        entry: [ "./src/app.tsx" ],
+        entry: ["./src/app.tsx"],
         mode: "development",
+        target: ["web", "es2020"],
         module: {
             rules: [
                 {
                     test: /\.(tsx|ts|js|jsx)$/,
                     exclude: /node_modules/,
                     use: {
-                        loader: "babel-loader"
+                        loader: "babel-loader",
+                        options: {
+                            presets: [
+                                [
+                                    "@babel/preset-env",
+                                    {
+                                        // Use browserslist config or specify targets here
+                                        targets: "last 2 Chrome versions, last 2 Firefox versions, last 2 Edge versions, last 2 Safari versions",
+                                        bugfixes: true,
+                                        modules: false
+                                    }
+                                ],
+                                "@babel/preset-react",
+                                "@babel/preset-typescript"
+                            ]
+                        }
                     }
                 },
                 {
@@ -62,7 +78,7 @@ module.exports = async () => {
                 },
                 {
                     test: /\.(png|jpg|cur|gif|eot|ttf|woff|woff2)$/,
-                    use: [ "url-loader" ]
+                    use: ["url-loader"]
                 },
                 {
                     test: /\.html$/,
@@ -75,7 +91,7 @@ module.exports = async () => {
                 {
                     test: /\.js$/,
                     enforce: "pre",
-                    use: [ "source-map-loader" ],
+                    use: ["source-map-loader"],
                     exclude: /node_modules/, // Ignore source maps in node_modules
                 }
             ]
@@ -101,7 +117,7 @@ module.exports = async () => {
             alias: {
                 "@": path.resolve(__dirname, "src"),
             },
-            extensions: [ ".tsx", ".ts", ".js", ".json" ]
+            extensions: [".tsx", ".ts", ".js", ".json"]
         }
     });
 };

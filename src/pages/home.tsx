@@ -79,7 +79,7 @@ export default function HomePage() {
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
-        </div>76
+        </div>
       </section>
 
       {/* Features Section */}

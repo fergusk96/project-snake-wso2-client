@@ -7,8 +7,13 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "build-production": "webpack --mode production --config webpack.config.js"
-
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Edge versions",
+    "last 2 Safari versions"
+  ],
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.6",
     "@kinde-oss/kinde-auth-react": "^5.5.0",
