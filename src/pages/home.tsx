@@ -8,7 +8,7 @@ import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 
 
-  const inGameAction = "/images/in_game_action.webp";
+const inGameAction = "/images/in_game_action.webp";
 export default function HomePage() {
   const { user, isAuthenticated, isLoading } = useKindeAuth();
 
@@ -50,8 +50,8 @@ export default function HomePage() {
           {isLoading
             ? "Loading..."
             : isAuthenticated
-            ? `Welcome ${displayName}!`
-            : "Welcome Player!"}
+              ? `Welcome ${displayName}!`
+              : "Welcome Player!"}
           <br />
           It's time to Master Strategy
           <br />
@@ -73,7 +73,15 @@ export default function HomePage() {
         </div>
         <div className="mt-16 relative w-full max-w-4xl aspect-video rounded-lg overflow-hidden border-2 border-gray-800 shadow-2xl">
           <img
-            src={inGameAction}
+            src="/images/in_game_action-600.webp"
+            srcSet="
+    /images/in_game_action-376.webp 376w,
+    /images/in_game_action-600.webp 600w,
+    /images/in_game_action-1024.webp 1024w
+  "
+            sizes="(max-width: 400px) 376px, (max-width: 700px) 600px, 1024px"
+            width={376}
+            height={376}
             fetchPriority="high"
             alt="Game Screenshot"
             className="object-cover w-full h-full"
@@ -121,7 +129,16 @@ export default function HomePage() {
             </div>
             <div className="relative aspect-video rounded-lg overflow-hidden border-2 border-gray-800 shadow-xl">
               <img
-                src={inGameAction}
+                src="/images/in_game_action-600.webp"
+                srcSet="
+    /images/in_game_action-376.webp 376w,
+    /images/in_game_action-600.webp 600w,
+    /images/in_game_action-1024.webp 1024w
+  "
+                sizes="(max-width: 400px) 376px, (max-width: 700px) 600px, 1024px"
+                width={376}
+                height={376}
+                fetchPriority="high"
                 alt="Game Screenshot"
                 className="object-cover w-full h-full"
               />
