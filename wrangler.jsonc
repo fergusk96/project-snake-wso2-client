@@ -1,6 +1,7 @@
 {
   // The name of your Worker
   "name": "project-snake",
+  "main": "src/worker.ts",
 
   // The compatibility date for Cloudflare Workers
   "compatibility_date": "2025-06-08",
@@ -15,4 +16,10 @@
     "namespace": "project-snake-web"
     }
   },
+  "r2_buckets": [
+    {
+      "binding": "IMAGE_BUCKET",
+      "bucket_name": "project-snake-images"
+    }
+  ]
 }

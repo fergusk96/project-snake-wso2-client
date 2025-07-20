@@ -8,7 +8,7 @@ import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 
 
-const inGameAction = "https://images.project-snake.win/in_game_action.png";
+  const inGameAction = "/images/in_game_action.png";
 export default function HomePage() {
   const { user, isAuthenticated, isLoading } = useKindeAuth();
 
@@ -74,11 +74,12 @@ export default function HomePage() {
         <div className="mt-16 relative w-full max-w-4xl aspect-video rounded-lg overflow-hidden border-2 border-gray-800 shadow-2xl">
           <img
             src={inGameAction}
+            fetchPriority="high"
             alt="Game Screenshot"
             className="object-cover w-full h-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
-        </div>
+        </div>76
       </section>
 
       {/* Features Section */}
