@@ -8,7 +8,7 @@ import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 
 
 
-  const inGameAction = "/images/in_game_action.png";
+  const inGameAction = "/images/in_game_action.webp";
 export default function HomePage() {
   const { user, isAuthenticated, isLoading } = useKindeAuth();
 
@@ -53,12 +53,12 @@ export default function HomePage() {
             ? `Welcome ${displayName}!`
             : "Welcome Player!"}
           <br />
-          It's time to Master Strategy.
+          It's time to Master Strategy
           <br />
           Conquer Worlds.
         </h1>
         <p className="text-xl text-gray-400 max-w-2xl mb-10">
-          Command armies, forge alliances, and outmaneuver your opponents in the ultimate test of strategic brilliance.
+          Command armies, forge alliances, and outmaneuver your opponents in the ultimate test of strategic brilliance!
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white">
