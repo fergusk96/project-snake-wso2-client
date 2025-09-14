@@ -17,20 +17,8 @@ export default {
       return new Response(object.body, { headers });
     }
 
-    // 2. Try to serve the static asset
-    if (env.ASSETS && env.ASSETS.fetch) {
-      const assetResponse = await env.ASSETS.fetch(request);
-      if (assetResponse.status !== 404) {
-        return assetResponse;
-      }
-    }
-
-    // 3. Fallback: serve index.html for SPA routes
-    if (env.ASSETS && env.ASSETS.fetch) {
-      const indexRequest = new Request(new URL("/index.html", url), request);
-      return await env.ASSETS.fetch(indexRequest);
-    }
-
-    return new Response("Not found", { status: 404 });
+    // 2. Fallback to static asset serving (the default site worker behavior)
+    // (This is usually handled by the framework or the rest of your fetch handler)
+    return env.ASSETS.fetch(request);
   }
 };

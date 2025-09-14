@@ -9,7 +9,9 @@
   // The directory containing static assets to be served
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist"
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/*"]
   },
   "observability": {
     "logs": {
