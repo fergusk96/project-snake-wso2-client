@@ -8,6 +8,7 @@
 
   // The directory containing static assets to be served
   "assets": {
+    "binding": "ASSETS",
     "directory": "./dist"
   },
   "observability": {
